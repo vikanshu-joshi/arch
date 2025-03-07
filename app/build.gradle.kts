@@ -42,6 +42,23 @@ android {
     }
 }
 
+tasks.register("setupGitHooks") {
+    description = "Sets up pre-commit hooks for Git"
+    group = "setup"
+    doLast {
+        val copyCommand = "cp scripts/commit-msg .git/hooks/"
+        val chmodCommand = "chmod +x .git/hooks/commit-msg"
+        exec {
+            commandLine("sh", "-c", copyCommand)
+        }
+        exec {
+            commandLine("sh", "-c", chmodCommand)
+        }
+        println("Commit hook installed.")
+    }
+}
+
+
 dependencies {
 
     implementation(libs.androidx.core.ktx)
