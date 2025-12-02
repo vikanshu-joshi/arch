@@ -13,6 +13,8 @@ import com.example.practice.detail.ui.HTLDetailInfoCard
  * Each card will individually create UI from that raw response nodes required
  * Each card will also have a callbacks class which will contain all callbacks that require activity level intervention
  * Rest of the events that do not require activity level intervention will be handled by card itself in VM
+ * After response is received activity will just create a ordered list of these classes and rest of the UI part each
+ * card will handle on its own
  * */
 sealed class DetailsCards(
     open val cardId: Int
