@@ -1,0 +1,18 @@
+#!/bin/sh
+# commit-msg hook: Appends the current branch name to the commit message.
+
+# Get the current branch name
+branch=$(git rev-parse --abbrev-ref HEAD)
+
+# Read the commit message from the file provided as an argument
+commit_msg=$(cat "$1")
+
+# Optionally, avoid duplicating the branch if it's already appended.
+case "$commit_msg" in
+    *"| $branch"*)
+        exit 0
+        ;;
+esac
+
+# Append the branch name to the commit message with the desired separator.
+echo "${commit_msg} | ${branch}" > "$1"

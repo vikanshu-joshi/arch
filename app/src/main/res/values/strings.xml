@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">Practice</string>
+
+
+    <string name="formatter_cg_listing_rank_tracking_event">CityGuide_Rank٪ 1 $ d_More_Clicked</string>
+
+    <string name="formatter_cg_detail_filter_tracking_event">تم النقر على Filters_Card٪ 1 $ d_ عامل التصفية٪ 2 $ d</string>
+
+    <string name="htl_TEXT_YOU_SAVE">لقد وفرت %1$s %2$d (%3$d</string>
+
+    <string name="htl_save_amount_text">وفر %1$s%2$s</string>
+
+    <string name="htl_rating_review_combined_text">%1s و%2s</string>
+
+    <string name="htl_str_force_rtl_on_arabic">%s</string>
+
+    <string name="htl_sr_occupancy_text">  \u2022  %s</string>
+
+    <string name="htl_adult_and_child">%1$s و%2$s</string>
+
+    <string name="htl_other_properties_compare_title">خصائص أخرى بواسطة %1$s في %2$s</string>
+
 </resources>
