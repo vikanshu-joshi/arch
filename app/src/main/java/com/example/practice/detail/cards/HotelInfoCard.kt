@@ -13,7 +13,7 @@ import com.example.practice.detail.tracker.HTLDetailInfoTracker
 class HotelInfoCard(
     val data: HTLDetailInfoCardModel, // raw data from api response
     val callbacks: HTLDetailInfoCardCallbacks, // single class with all events concerned with current card
-    val tracker: HTLDetailInfoTracker, // generic screen tracker which will be later on used by card itself
+    val tracker: HTLDetailInfoTracker, // card specific tracker which will be later on used by card itself
     override val cardId: Int
 ): DetailCards(cardId) {
 
