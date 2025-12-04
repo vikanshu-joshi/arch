@@ -18,12 +18,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.practice.detail.base.DetailTracker
 import com.example.practice.detail.callbacks.HTLDetailInfoCardCallbacks
 import com.example.practice.detail.model.HTLDetailInfoCardModel
 import com.example.practice.detail.state.HTLDetailInfoCardUiState
@@ -33,8 +35,14 @@ import com.example.practice.detail.viewmodel.HTLDetailInfoCardVM
 @Composable
 fun HTLDetailInfoCard(
     modifier: Modifier = Modifier,
-    viewModel: HTLDetailInfoCardVM,
+    data: HTLDetailInfoCardModel,
+    callbacks: HTLDetailInfoCardCallbacks,
+    detailTracker: DetailTracker,
 ) {
+    val viewModel = remember(data, callbacks, detailTracker) {
+        HTLDetailInfoCardVM(data, callbacks, detailTracker)
+    }
+
     val uiState by viewModel.uiState
 
     HTLDetailInfoCardContent(modifier, uiState)
@@ -44,7 +52,7 @@ fun HTLDetailInfoCard(
  * Every card will have this content composable which will take ui state only and render UI
  * */
 @Composable
-fun HTLDetailInfoCardContent(modifier: Modifier = Modifier, uiState: HTLDetailInfoCardUiState, ) {
+fun HTLDetailInfoCardContent(modifier: Modifier = Modifier, uiState: HTLDetailInfoCardUiState) {
     Card(
         modifier = modifier.padding(16.dp)
     ) {
