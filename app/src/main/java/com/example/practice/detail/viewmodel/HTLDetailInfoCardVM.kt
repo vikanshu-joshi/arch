@@ -16,9 +16,7 @@ import com.example.practice.detail.tracker.HTLDetailInfoTracker
 import kotlin.math.roundToInt
 
 
-class HTLDetailInfoCardVM(private val data: HTLDetailInfoCardModel, private val callbacks: HTLDetailInfoCardCallbacks, private val detailTracker: DetailTracker) {
-
-    private val tracker by lazy { HTLDetailInfoTracker(detailTracker) }
+class HTLDetailInfoCardVM(private val data: HTLDetailInfoCardModel, private val callbacks: HTLDetailInfoCardCallbacks, private val tracker: HTLDetailInfoTracker) {
 
     private val _uiState = mutableStateOf(HTLDetailInfoCardUiState())
     val uiState: State<HTLDetailInfoCardUiState> = _uiState

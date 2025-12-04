@@ -24,6 +24,7 @@ import com.example.practice.detail.viewmodel.HTLDetailInfoCardVM
 import com.example.practice.detail.cards.HotelInfoCard
 import com.example.practice.detail.base.DetailCards
 import com.example.practice.detail.base.DetailTracker
+import com.example.practice.detail.tracker.HTLDetailInfoTracker
 import kotlinx.coroutines.delay
 
 class MainActivity : ComponentActivity() {
@@ -40,15 +41,13 @@ class MainActivity : ComponentActivity() {
                     delay(3000)
                     cards.add(
                         HotelInfoCard(
-                            viewModel = HTLDetailInfoCardVM(
-                                getDummyHTLDetailInfoCardModel(),
-                                HTLDetailInfoCardCallbacks(
-                                    onReviewRatingsClicked = ::onReviewRatingsClicked,
-                                    onLocationClicked = ::onLocationClicked,
-                                    onChainGroupClicked = ::onChainGroupClicked,
-                                ),
-                                detailTracker = DetailTracker()
+                            getDummyHTLDetailInfoCardModel(),
+                            HTLDetailInfoCardCallbacks(
+                                onReviewRatingsClicked = ::onReviewRatingsClicked,
+                                onLocationClicked = ::onLocationClicked,
+                                onChainGroupClicked = ::onChainGroupClicked,
                             ),
+                            tracker = HTLDetailInfoTracker(DetailTracker()),
                             cardId = 0
                         )
                     )

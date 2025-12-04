@@ -8,16 +8,17 @@ import com.example.practice.detail.base.DetailCards
 import com.example.practice.detail.base.DetailTracker
 import com.example.practice.detail.callbacks.HTLDetailInfoCardCallbacks
 import com.example.practice.detail.model.HTLDetailInfoCardModel
+import com.example.practice.detail.tracker.HTLDetailInfoTracker
 
 class HotelInfoCard(
-    val data: HTLDetailInfoCardModel,
-    val callbacks: HTLDetailInfoCardCallbacks,
-    val detailTracker: DetailTracker,
+    val data: HTLDetailInfoCardModel, // raw data from api response
+    val callbacks: HTLDetailInfoCardCallbacks, // single class with all events concerned with current card
+    val tracker: HTLDetailInfoTracker, // generic screen tracker which will be later on used by card itself
     override val cardId: Int
 ): DetailCards(cardId) {
 
     @Composable
     override fun UI(modifier: Modifier) {
-        HTLDetailInfoCard(modifier = Modifier.Companion, data = data, callbacks = callbacks, detailTracker = detailTracker)
+        HTLDetailInfoCard(modifier = Modifier.Companion, data = data, callbacks = callbacks, tracker = tracker)
     }
 }

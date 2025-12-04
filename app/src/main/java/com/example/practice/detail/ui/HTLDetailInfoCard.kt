@@ -30,6 +30,7 @@ import com.example.practice.detail.callbacks.HTLDetailInfoCardCallbacks
 import com.example.practice.detail.model.HTLDetailInfoCardModel
 import com.example.practice.detail.state.HTLDetailInfoCardUiState
 import com.example.practice.detail.state.HotelInfoCardSection
+import com.example.practice.detail.tracker.HTLDetailInfoTracker
 import com.example.practice.detail.viewmodel.HTLDetailInfoCardVM
 
 @Composable
@@ -37,10 +38,10 @@ fun HTLDetailInfoCard(
     modifier: Modifier = Modifier,
     data: HTLDetailInfoCardModel,
     callbacks: HTLDetailInfoCardCallbacks,
-    detailTracker: DetailTracker,
+    tracker: HTLDetailInfoTracker,
 ) {
-    val viewModel = remember(data, callbacks, detailTracker) {
-        HTLDetailInfoCardVM(data, callbacks, detailTracker)
+    val viewModel = remember(data, callbacks, tracker) {
+        HTLDetailInfoCardVM(data, callbacks, tracker)
     }
 
     val uiState by viewModel.uiState
