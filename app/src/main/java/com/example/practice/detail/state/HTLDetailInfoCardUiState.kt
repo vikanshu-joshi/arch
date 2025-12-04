@@ -4,9 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.example.practice.detail.ui.ChainGroupSectionUI
-import com.example.practice.detail.ui.LocationSectionUI
-import com.example.practice.detail.ui.ReviewRatingsSectionUI
+import com.example.practice.detail.composable.ChainGroupSectionUI
+import com.example.practice.detail.composable.LocationSectionUI
+import com.example.practice.detail.composable.ReviewRatingsSectionUI
 
 data class HTLDetailInfoCardUiState(
     val tags: List<String> = listOf(),

@@ -1,4 +1,4 @@
-package com.example.practice.detail.ui
+package com.example.practice.detail.composable
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
