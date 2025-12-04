@@ -3,29 +3,29 @@ package com.example.practice.detail.viewmodel
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.Color
+import com.example.practice.detail.base.DetailTracker
 import com.example.practice.detail.callbacks.HTLDetailInfoCardCallbacks
 import com.example.practice.detail.model.HTLDetailInfoCardModel
 import com.example.practice.detail.state.HTLDetailInfoCardUiState
 import com.example.practice.detail.state.HotelInfoCardSection
+import com.example.practice.detail.tracker.HTLDetailInfoTracker
 import kotlin.math.roundToInt
 
 
-class HTLDetailInfoCardVM(private val data: HTLDetailInfoCardModel, private val callbacks: HTLDetailInfoCardCallbacks) {
+class HTLDetailInfoCardVM(private val data: HTLDetailInfoCardModel, private val callbacks: HTLDetailInfoCardCallbacks, private val detailTracker: DetailTracker) {
+
+    private val tracker by lazy { HTLDetailInfoTracker(detailTracker) }
 
     private val _uiState = mutableStateOf(HTLDetailInfoCardUiState())
     val uiState: State<HTLDetailInfoCardUiState> = _uiState
 
-
-
     init {
         createUiState()
     }
-
 
     private fun createUiState() {
         _uiState.value = HTLDetailInfoCardUiState(
@@ -45,7 +45,6 @@ class HTLDetailInfoCardVM(private val data: HTLDetailInfoCardModel, private val 
         }
     }
 
-
     private fun getRatingsSection(): HotelInfoCardSection.ReviewRatingsSection? {
         return HotelInfoCardSection.ReviewRatingsSection(
             starRating = data.rating,
@@ -53,7 +52,7 @@ class HTLDetailInfoCardVM(private val data: HTLDetailInfoCardModel, private val 
             accentColor = Color.Blue,
             subtitle = data.ratingsInfoText,
             trailingIcon = Icons.AutoMirrored.Filled.KeyboardArrowRight,
-            onTrailingIconClicked = callbacks.onReviewRatingsClicked
+            onTrailingIconClicked = ::onReviewRatingsClicked
         )
     }
 
@@ -62,7 +61,7 @@ class HTLDetailInfoCardVM(private val data: HTLDetailInfoCardModel, private val 
             iconUrl = Icons.Default.LocationOn,
             title = data.locationName + " | " + data.locationInfo,
             trailingIcon = Icons.AutoMirrored.Filled.KeyboardArrowRight,
-            onTrailingIconClicked = callbacks.onLocationClicked
+            onTrailingIconClicked = ::onLocationClicked
         )
     }
 
@@ -71,9 +70,28 @@ class HTLDetailInfoCardVM(private val data: HTLDetailInfoCardModel, private val 
             iconUrl = Icons.Default.Home,
             title = data.locationName + " | " + data.locationInfo,
             trailingIcon = Icons.AutoMirrored.Filled.KeyboardArrowRight,
-            onTrailingIconClicked = callbacks.onLocationClicked
+            onTrailingIconClicked = ::onChainGroupClicked
         )
     }
 
+
+    private fun onReviewRatingsClicked() {
+        tracker.onReviewRatingsClicked()
+        callbacks.onReviewRatingsClicked()
+    }
+
+    private fun onLocationClicked() {
+        tracker.onLocationClicked()
+        callbacks.onLocationClicked()
+    }
+
+    private fun onChainGroupClicked() {
+        tracker.chainGroupClicked()
+        callbacks.onChainGroupClicked()
+    }
+
+    private fun onCardSeen() {
+        tracker.onCardSeen()
+    }
 
 }

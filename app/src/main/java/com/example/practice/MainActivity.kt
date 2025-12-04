@@ -10,20 +10,21 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.unit.dp
-import com.example.practice.detail.DetailsCards
 import com.example.practice.detail.HotelDetailScreen
 import com.example.practice.detail.callbacks.HTLDetailInfoCardCallbacks
 import com.example.practice.detail.model.HTLDetailInfoCardModel
-import com.example.practice.detail.ui.HTLDetailInfoCard
+import com.example.practice.detail.viewmodel.HTLDetailInfoCardVM
+import com.example.practice.detail.cards.HotelInfoCard
+import com.example.practice.detail.base.DetailCards
+import com.example.practice.detail.base.DetailTracker
+import kotlinx.coroutines.delay
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +32,28 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             Scaffold { padding ->
+
+                val cards = SnapshotStateList<DetailCards>() // creating this cards list is role of activity view model based on api response
+
+                LaunchedEffect(Unit) {
+                    cards.clear()
+                    delay(3000)
+                    cards.add(
+                        HotelInfoCard(
+                            viewModel = HTLDetailInfoCardVM(
+                                getDummyHTLDetailInfoCardModel(),
+                                HTLDetailInfoCardCallbacks(
+                                    onReviewRatingsClicked = ::onReviewRatingsClicked,
+                                    onLocationClicked = ::onLocationClicked,
+                                    onChainGroupClicked = ::onChainGroupClicked,
+                                ),
+                                detailTracker = DetailTracker()
+                            ),
+                            cardId = 0
+                        )
+                    )
+                }
+
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
@@ -39,19 +62,25 @@ class MainActivity : ComponentActivity() {
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    val cards = mutableListOf<DetailsCards>()
-                    cards.add(
-                        DetailsCards.HTLDetailInfoCard(
-                            data = getDummyHTLDetailInfoCardModel(),
-                            callbacks = getHTLDetailInfoCardCallbacks(this@MainActivity),
-                            cardId = 0
-                        )
-                    )
                     HotelDetailScreen(cards)
                 }
             }
         }
     }
+
+
+    fun onReviewRatingsClicked() {
+        Toast.makeText(this, "review ratings clicked", Toast.LENGTH_LONG).show()
+    }
+
+    fun onLocationClicked() {
+        Toast.makeText(this, "location clicked", Toast.LENGTH_LONG).show()
+    }
+
+    fun onChainGroupClicked() {
+        Toast.makeText(this, "chain group clicked", Toast.LENGTH_LONG).show()
+    }
+
 }
 
 
@@ -72,25 +101,5 @@ fun getDummyHTLDetailInfoCardModel(): HTLDetailInfoCardModel {
         chainName = "Marriott Hotels",
         chainIcon = "chain_icon",
         description = "Experience luxury and comfort at our world-class resort. Enjoy stunning ocean views, premium amenities, and exceptional service in the heart of Miami Beach. Our resort features multiple restaurants, a full-service spa, and direct beach access."
-    )
-}
-
-/**
- * This method mimics event handling related to a card
- * */
-fun getHTLDetailInfoCardCallbacks(context: Context): HTLDetailInfoCardCallbacks {
-    return HTLDetailInfoCardCallbacks(
-        onReviewRatingsClicked = {
-            Toast.makeText(context, "Review Ratings Clicked", Toast.LENGTH_SHORT).show()
-        },
-        onLocationClicked = {
-            Toast.makeText(context, "Location Clicked", Toast.LENGTH_SHORT).show()
-        },
-        onChainGroupClicked = {
-            Toast.makeText(context, "Chain Group Clicked", Toast.LENGTH_SHORT).show()
-        },
-        onPropertyOverViewClicked = {
-            Toast.makeText(context, "Property Overview Clicked", Toast.LENGTH_SHORT).show()
-        }
     )
 }

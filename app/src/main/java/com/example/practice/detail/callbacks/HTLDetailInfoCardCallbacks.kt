@@ -9,6 +9,5 @@ package com.example.practice.detail.callbacks
 data class HTLDetailInfoCardCallbacks(
     val onReviewRatingsClicked: () -> Unit,
     val onLocationClicked: () -> Unit,
-    val onChainGroupClicked: () -> Unit,
-    val onPropertyOverViewClicked: () -> Unit
+    val onChainGroupClicked: () -> Unit
 )
