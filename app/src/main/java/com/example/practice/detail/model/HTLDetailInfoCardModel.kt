@@ -1,10 +1,13 @@
 package com.example.practice.detail.model
 
+import androidx.compose.runtime.Immutable
+
 /**
  * This class will contain all the data that a card requires to function.
  * this will be raw data derived from api response
  * each cards VM will later on process this raw response and transform into UI accordingly
  * */
+@Immutable
 data class HTLDetailInfoCardModel(
     val tags: List<String>,
     val hotelName: String,
